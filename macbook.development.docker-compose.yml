@@ -1,0 +1,35 @@
+version: '3'
+services:
+  goyave_api:
+    container_name: goyave_api
+    image: arm64v8/node:16
+    working_dir: /home/goyave
+    command: sh -c 'yarn install &&  yarn dev'
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_ENV=development
+      - NODE_PORT=8000
+    depends_on:
+      - goyave_mongodb
+    volumes:
+      - .:/home/goyave
+    networks:
+      - goyave_network
+
+  goyave_mongodb:
+    container_name: goyave_mongodb
+    image: arm64v8/mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./database/mongo:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: goyave
+    networks:
+      - goyave_network
+
+networks:
+  goyave_network:
