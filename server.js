@@ -14,7 +14,6 @@ if(process.env.NODE_ENV === 'development'){
 }
 
 await connectToDatabase();
-
 //routes and middlewares
 app.use(express.json());
 app.use('/',router)
