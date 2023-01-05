@@ -1,5 +1,7 @@
 import express from 'express'
-import authroutes from './auth/index.js'
+import authRoutes from './auth/index.js'
+import travelRoutes from './travel/index.js'
+
 import protectRoute from '../middlewares/protectRoute.js'
 const router = express.Router()
 
@@ -9,6 +11,7 @@ router.get('/', (req, res) => {
 router.get('/protected',protectRoute, (req, res) => {
   res.status(200).send('Hello World!')
 })
-router.use('/auth', authroutes)
+router.use('/auth', authRoutes)
+router.use('/travel', protectRoute, travelRoutes)
 
 export default router
