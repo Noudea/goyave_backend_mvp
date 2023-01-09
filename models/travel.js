@@ -12,6 +12,10 @@ const travelSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  invitations: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Invitation'
+  }],
   dates: {
     type: Date,
   },
